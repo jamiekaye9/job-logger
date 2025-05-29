@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Logger</title>
-    {% block head %}
-    {% endblock %}
-</head>
-<body>
+    {% block head %} {% endblock %}
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li><a href="{% url 'logout' %}">Sign Out</a></li>
+          {% else %}
+          <li><a href="/">Home</a></li>
+          <li><a href="{% url 'login' %}">Sign In</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
+        </ul>
+      </nav>
     </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-</body>
+    <main>{% block content %} {% endblock %}</main>
+  </body>
 </html>
