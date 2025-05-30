@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from jobs.models import JobApplication
+from jobs.models import JobApplication, Stage
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -19,9 +19,11 @@ class JobApplicationForm(forms.ModelForm):
         widgets = {
             'date_applied': forms.DateInput(attrs={'type': 'date'}),
         }
-        def save(self, commit=True):
-            job_application = super().save(commit=False)
-            job_application.status = 'applied'
-            if commit:
-                job_application.save()
-            return job_application
+
+class StageForm(forms.ModelForm):
+    class Meta:
+        model = Stage
+        fields = ['stage_name', 'stage_date_time', 'status']
+        widgets = {
+            'stage_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }

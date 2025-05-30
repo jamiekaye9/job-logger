@@ -1,0 +1,9 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <h2>Are you sure you wanna delete {{application.company_name}} - {{application.job_title}}?</h2>
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+</form>
+{% endblock %}

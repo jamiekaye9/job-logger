@@ -1,4 +1,12 @@
 {% extends 'base/base.html' %}
 {% block content %}
 <h1>My Applications</h1>
+{% for application in applications %}
+    <div>
+        <h3><a href="{% url 'job_application_detail' application.pk %}">{{application.company_name}}</a></h3>
+        <p>{{application.job_title}}</p>
+        <p>Status: {{application.status}}</p>
+    </div>
+
+{% endfor %}
 {% endblock %}

@@ -1,14 +1,23 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from . import views
+from jobs.views import HomeView, SignupView, CustomLoginView, CustomLogoutView, ProfileView, JobApplicationListView, JobApplicationCreateView, JobApplicationDetailView, JobApplicationUpdateView, JobApplicationDeleteView, StageCreateView, StageUpdateView, StageDeleteView
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('signup/', views.signup, name='signup'),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
-    path('profile/', views.profile, name='profile'),
-    path('job_applications/', views.job_application_list, name='job_application_list'),
-    path('new_job_application/', views.job_application_form, name='job_application_form'),
+    path('', HomeView.as_view(), name='home'),
+    path('signup/', SignupView.as_view(), name='signup'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
+
+    path('profile/', ProfileView.as_view(), name='profile'),
+    path('job_applications/', JobApplicationListView.as_view(), name='job_application_list'),
+    path('new_job_application/', JobApplicationCreateView.as_view(), name='job_application_form'),
+    path('job_applications/<int:pk>/', JobApplicationDetailView.as_view(), name='job_application_detail'),
+    path('job_applications/<int:pk>/update/', JobApplicationUpdateView.as_view(), name='job_application_update'),
+    path('job_applications/<int:pk>/delete/', JobApplicationDeleteView.as_view(), name='job_application_delete'),
+
+    path('stages/new/<int:application_id>/', StageCreateView.as_view(), name='create_stage'),
+    # path('stages/<int:pk>/', StageDetailView.as_view(), name='stage_detail'),
+    path('stages/<int:pk>/update/', StageUpdateView.as_view(), name='update_stage'),
+    path('stages/<int:pk>/delete/', StageDeleteView.as_view(), name='delete_stage'),
 ]

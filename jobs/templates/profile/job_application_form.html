@@ -4,29 +4,34 @@
 <form method="post">
     {% csrf_token %}
     <div>
-        <label for="form.company_name">Company Name</label>
+        <label for="id_company_name">Company Name</label>
         {{ form.company_name }}
         {{ form.company_name.errors }}
     </div>
     <div>
-        <label for="form.job_title">Job Title</label>
+        <label for="id_job_title">Job Title</label>
         {{ form.job_title }}
         {{ form.job_title.errors }}
     </div>
     <div>
-        <label for="form.salary">Salary</label>
+        <label for="id_salary">Salary</label>
         {{ form.salary }}
         {{ form.salary.errors }}
     </div>
     <div>
-        <label for="form.location">Location</label>
+        <label for="id_location">Location</label>
         {{ form.location }}
         {{ form.location.errors }}
     </div>
     <div>
-        <label for="form.date_applied">Date Applied</label>
+        <label for="id_date_applied">Date Applied</label>
         {{ form.date_applied }}
         {{ form.date_applied.errors }}
+    </div>
+    <div>
+        <label for="id_status">Status</label>
+        {{ form.status }}
+        {{ form.status.errors }}
     </div>
     <button type="submit">Submit</button>
 </form>

@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<h1>{{application.company_name}} - {{application.job_title}}</h1>
+<p>Status: {{application.status}}</p>
+<p>Salary: £{{application.salary}}</p>
+<p>Location: {{application.location}}</p>
+<p>Date Applied: {{application.date_applied}}</p>
+
+<a href="{% url 'job_application_update' application.pk %}">Edit</a> |
+<a href="{% url 'job_application_delete' application.pk %}">Delete</a>
+
+<h2>Add a New Stage</h2>
+<form method="post" action="{% url 'create_stage' application.pk %}">
+    {% csrf_token %}
+    <div>
+        <label for="id_stage_name">Name</label>
+        {{ stage_form.stage_name }}
+        {{ stage_form.stage_name.errors }}
+    </div>
+    <div>
+        <label for="id_stage_date">Date & Time</label>
+        {{ stage_form.stage_date_time }}
+        {{ stage_form.stage_date.errors }}
+    </div>
+    <div>
+        <label for="id_stage_status">Status</label>
+        {{ stage_form.status }}
+        {{ stage_form.status.errors }}
+    </div>
+    <button type="Submit">Submit</button>
+</form>
+
+<h2>Stages</h2>
+{% if stages %}
+<ul>
+    {% for stage in stages %}
+    <li>
+        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }}
+    </li>
+    {% endfor %}
+{% else %}
+    <p>No stages added yet.</p>
+{% endif %}
+{% endblock %}
+
