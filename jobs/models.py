@@ -25,7 +25,7 @@ class JobApplication(models.Model):
         return f"{self.job_title} at {self.company_name} - {self.user.username}"
 
 class Stage(models.Model):
-    job_application = models.ForeignKey(JobApplication, related_name='stages', on_delete=models.CASCADE)
+    job_application = models.ForeignKey(JobApplication, related_name='stages', on_delete=models.CASCADE, null=True, blank=True)
     stage_number = models.IntegerField()
     stage_name = models.CharField(max_length=100)
     stage_date_time = models.DateTimeField()
@@ -35,7 +35,10 @@ class Stage(models.Model):
     ])
 
     def __str__(self):
-        return f"Stage {self.stage_number} for {self.job_application.job_title} at {self.job_application.company_name}"
+       if self.job_application:
+           return f"Stage {self.stage_number} for {self.job_application.job_title} at {self.job_application.company_name}"
+       else:
+           return f"Stage {self.stage_number} (no job application)"
 
 class ApplicationNote(models.Model):
     job_application = models.ForeignKey(JobApplication, related_name='notes', on_delete=models.CASCADE)

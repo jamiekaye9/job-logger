@@ -5,7 +5,11 @@
 <p>Salary: £{{application.salary}}</p>
 <p>Location: {{application.location}}</p>
 <p>Date Applied: {{application.date_applied}}</p>
-<p>Current Stage: Stage: {{current_stage.stage_number}}: {{current_stage.stage_name}}</p>
+{% if current_stage %}
+<p>Current Stage: {{current_stage.stage_number}}: {{current_stage.stage_name}}</p>
+{% else %}
+<p>Current Stage: No stages added yet.</p>
+{% endif %}
 
 <a href="{% url 'job_application_update' application.pk %}">Edit</a> |
 <a href="{% url 'job_application_delete' application.pk %}">Delete</a>
@@ -36,7 +40,8 @@
 <ul>
     {% for stage in stages %}
     <li>
-        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }} <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
+        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }} 
+        <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
     </li>
     {% endfor %}
 {% else %}
