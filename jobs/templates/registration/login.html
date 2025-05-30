@@ -2,8 +2,27 @@
 {% block content %}
 <h1>Sign In</h1>
 <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign In</button>
+  {% csrf_token %}
+
+  {% if form.non_field_errors %}
+    <div class="error">
+      {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div>
+    {{ form.username.label_tag }}
+    {{ form.username }}
+  </div>
+
+  <div>
+    {{ form.password.label_tag }}
+    {{ form.password }}
+  </div>
+
+  <button type="submit">Sign In</button>
 </form>
+
 {% endblock %}

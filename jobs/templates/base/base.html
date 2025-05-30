@@ -12,6 +12,8 @@
         <ul>
           {% if user.is_authenticated %}
           <li><a href="{% url 'profile' %}">Profile</a></li>
+          <li><a href="{% url 'job_application_list' %}">My Applications</a></li>
+          <li><a href="{% url 'job_application_form' %}">New Application</a></li>
           <li><a href="{% url 'logout' %}">Sign Out</a></li>
           {% else %}
           <li><a href="/">Home</a></li>
