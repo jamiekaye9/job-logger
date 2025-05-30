@@ -17,7 +17,6 @@ urlpatterns = [
     path('job_applications/<int:pk>/delete/', JobApplicationDeleteView.as_view(), name='job_application_delete'),
 
     path('stages/new/<int:application_id>/', StageCreateView.as_view(), name='create_stage'),
-    # path('stages/<int:pk>/', StageDetailView.as_view(), name='stage_detail'),
     path('stages/<int:pk>/update/', StageUpdateView.as_view(), name='update_stage'),
     path('stages/<int:pk>/delete/', StageDeleteView.as_view(), name='delete_stage'),
 ]

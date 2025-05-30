@@ -147,3 +147,8 @@ class StageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         stage = self.get_object()
         return stage.job_application.user == self.request.user
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['application'] = self.object.job_application
+        return context

@@ -35,7 +35,7 @@
 <ul>
     {% for stage in stages %}
     <li>
-        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }}
+        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }} <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
     </li>
     {% endfor %}
 {% else %}
