@@ -5,6 +5,7 @@
 <p>Salary: £{{application.salary}}</p>
 <p>Location: {{application.location}}</p>
 <p>Date Applied: {{application.date_applied}}</p>
+<p>Current Stage: Stage: {{current_stage.stage_number}}: {{current_stage.stage_name}}</p>
 
 <a href="{% url 'job_application_update' application.pk %}">Edit</a> |
 <a href="{% url 'job_application_delete' application.pk %}">Delete</a>

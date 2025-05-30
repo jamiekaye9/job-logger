@@ -12,12 +12,12 @@ class JobApplication(models.Model):
     date_applied = models.DateField()
     date_updated = models.DateField(auto_now=True)
     status = models.CharField(max_length=50, choices=[
-        ('applied', 'Applied'),
-        ('in_progess', 'In Progress'),
-        ('offer', 'Offer'),
-        ('rejected', 'Rejected'),
-        ('withdrawn', 'Withdrawn'),
-        ('accepted', 'Accepted'),
+        ('Applied', 'Applied'),
+        ('In Progress', 'In Progress'),
+        ('Offer', 'Offer'),
+        ('Rejected', 'Rejected'),
+        ('Withdrawn', 'Withdrawn'),
+        ('Accepted', 'Accepted'),
     ])
     current_stage = models.ForeignKey('Stage', null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -30,8 +30,8 @@ class Stage(models.Model):
     stage_name = models.CharField(max_length=100)
     stage_date_time = models.DateTimeField()
     status = models.CharField(max_length=50, choices=[
-        ('pending', 'Pending'),
-        ('complete', 'Complete'),
+        ('Pending', 'Pending'),
+        ('Complete', 'Complete'),
     ])
 
     def __str__(self):

@@ -64,6 +64,7 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['stages'] = self.object.stages.all()
         context['stage_form'] = StageForm()
+        # context['current_stage'] = self.object.stages.filter(self.object.current_stage.id)
         return context
 
     def get_queryset(self):
@@ -104,7 +105,9 @@ class StageCreateView(LoginRequiredMixin, CreateView):
         stage.job_application = job_application
         last_stage = job_application.stages.order_by('stage_number').last()
         stage.stage_number = last_stage.stage_number + 1 if last_stage else 1
+        job_application.current_stage = stage
         stage.save()
+        job_application.save()
         return redirect('job_application_detail', pk=job_application.id)
 
     def get_context_data(self, **kwargs):
@@ -115,14 +118,6 @@ class StageCreateView(LoginRequiredMixin, CreateView):
         context['stages'] = job_application.stages.all()
         context['stage_form'] = StageForm()
         return context
-
-# class StageDetailView(LoginRequiredMixin, DetailView):
-#     model = Stage
-#     template_name = 'profile/stage_detail.html'
-#     context_object_name = 'stage'
-
-#     def get_queryset(self):
-#         return Stage.objects.filter(job_application__user=self.request.user)
 
 class StageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Stage
