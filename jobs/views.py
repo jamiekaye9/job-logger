@@ -64,7 +64,7 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['stages'] = self.object.stages.all()
         context['stage_form'] = StageForm()
-        context['current_stage'] = self.object.current_stage
+        context['current_stage'] = JobApplication.objects.get(pk=self.object.pk).current_stage
         return context
 
     def get_queryset(self):
@@ -136,16 +136,23 @@ class StageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'profile/stage_confirm_delete.html'
     context_object_name = 'stage'
 
-    def delete(self, request, *args, **kwargs): 
-      self.object = self.get_object()
-      job_application = self.object.job_application
-      if job_application.current_stage == self.object:
-        job_application.current_stage = stage.job_application.stages.exclude(id=self.object.id).last()  # Set to last stage if current stage is deleted
-      job_application.save()
+    def form_valid(self, form):
+        self.object = self.get_object()
+        job_application = self.object.job_application
+        is_current_stage = (job_application.current_stage_id == self.object.id)
 
-      self.object.delete()
-      return redirect(self.get_success_url())
+        new_current_stage = None
+        if is_current_stage:
+            remaining_stages = job_application.stages.exclude(id=self.object.id).order_by('-stage_number')
+            new_current_stage = remaining_stages.first()
 
+        self.object.delete()
+
+        if is_current_stage:
+            job_application.current_stage = new_current_stage
+            job_application.save()
+
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse_lazy('job_application_detail', kwargs={'pk': self.object.job_application.pk})
