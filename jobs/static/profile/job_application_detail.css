@@ -1,4 +1,5 @@
-.title {
+
+.header-title {
     padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -12,6 +13,7 @@
 
 .job-details-main {
     margin-top: 30px;
+    width: 1300px;
 }
 
 .job-details-top {
@@ -38,8 +40,11 @@
     flex-direction: column;
     gap: 10px;
     border: 2px solid #0093bf;
-    width: 600px;
-    height: 500px;
+    width: 700px;
+    height: 570px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .job-details-info {
@@ -47,6 +52,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    width: 450px;
+    border-radius: 10px;
 }
 
 .new-stage-form {
@@ -54,28 +63,107 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 250px;
+    border-radius: 10px;
+    padding-left: 10px;
 }
 
 .application-note-box {
     border: 1px solid #0093bf;
+    border-radius: 5px;
+    overflow-x: hidden;
+    width: 100%; 
+    box-sizing: border-box;
+    word-wrap: break-word;
 }
 
 .application-note-actions {
     display: flex;
     justify-content: right;
     gap: 10px;
+    margin-top: 5px;
 
 }
 
 .application-notes-section {
-    height: 320px;
-    border: 2px solid #0093bf;
+    height: 310px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
 }
 
 .application-note {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
+
+.note-text {
+    padding: 5px;
+}
+
+.note-date {
+    color: #0093bf;
+    font-size: 14px;
+}
+
+
+.title {
+    color: #0093bf;
+    font-weight: bold;
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+.detail-actions {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    align-items: center;
+}
+
+.button, .edit-button {
+    background-color: #0093bf;
+    color: white;
+    border: none;
+    height: 25px;
+    width: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 12px;
+}
+
+.edit-button {
+    background-color: #767777;
+}
+
+.note-form-actions {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+}
+
+.stage-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stage-form input, .stage-form select {
+    border: #0093bf 2px solid;
+    border-radius: 5px;
+    width: 220px;
+}
+
+.stage-form-fields {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+
