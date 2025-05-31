@@ -67,19 +67,23 @@
                 {% if notes %}
                 <div class="application-notes-list">
                     <h3>Notes</h3>
+                    <div class="application-notes-section">
                     {% for note in notes %}
-                    <div class="application-note-box">
-                        <p class="note-text">{{note.note_text}}</p>
-                    </div>
-                    <div class="application-note-actions">
-                        <p class="note-date">{{note.created_at}}</p>
-                        <a href="{% url 'update_application_note' application.pk note.pk %}">Edit</a>
-                        <form method="post" action="{% url 'delete_application_note' application.pk note.pk %}" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit">Delete</button>
-                        </form>
-                    </div>
+                        <div class="application-note">
+                            <div class="application-note-box">
+                                <p class="note-text">{{note.note_text}}</p>
+                            </div>
+                            <div class="application-note-actions">
+                                <p class="note-date">{{note.created_at}}</p>
+                                <a href="{% url 'update_application_note' application.pk note.pk %}">Edit</a>
+                                <form method="post" action="{% url 'delete_application_note' application.pk note.pk %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
                     {% endfor %}
+                    </div>
                 </div>
                 {% else %}
                 <p>No notes added yet.</p>

@@ -66,3 +66,16 @@
     gap: 10px;
 
 }
+
+.application-notes-section {
+    height: 320px;
+    border: 2px solid #0093bf;
+    overflow-y: auto;
+    gap: 20px;
+}
+
+.application-note {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
