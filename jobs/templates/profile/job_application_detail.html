@@ -40,12 +40,26 @@
 <ul>
     {% for stage in stages %}
     <li>
-        <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong> - {{ stage.stage_date_time }} - {{ stage.status }} 
-        <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
+        {% if editing_stage_id == stage.id %}
+            <form method="post" action="{% url 'update_stage' stage.pk %}">
+                {% csrf_token %}
+                {{ edit_stage_form.stage_name.label }} {{ edit_stage_form.stage_name }}
+                {{ edit_stage_form.stage_date_time.label }} {{ edit_stage_form.stage_date_time }}
+                {{ edit_stage_form.status.label }} {{ edit_stage_form.status }}
+                <button type="submit">Save</button>
+                <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+            </form>
+        {% else %}
+            <strong>Stage: {{stage.stage_number}}: {{ stage.stage_name }}</strong>
+            - {{ stage.stage_date_time }} - {{ stage.status }}
+            <a href="{% url 'job_application_detail' application.pk %}?edit={{ stage.pk }}">Edit</a>
+            <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
+        {% endif %}
     </li>
     {% endfor %}
+</ul>
 {% else %}
-    <p>No stages added yet.</p>
+<p>No stages added yet.</p>
 {% endif %}
 {% endblock %}
 

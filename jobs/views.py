@@ -61,11 +61,25 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'application'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['stages'] = self.object.stages.all()
-        context['stage_form'] = StageForm()
-        context['current_stage'] = JobApplication.objects.get(pk=self.object.pk).current_stage
-        return context
+            context = super().get_context_data(**kwargs)
+            job_application = JobApplication.objects.get(pk=self.object.pk)
+            context['stages'] = job_application.stages.all()
+            context['stage_form'] = StageForm()
+            
+            editing_stage_id = self.request.GET.get("edit")
+            context['editing_stage_id'] = int(editing_stage_id) if editing_stage_id else None
+    
+            if editing_stage_id:
+                try:
+                    stage = Stage.objects.get(id=editing_stage_id, job_application=job_application)
+                    context['edit_stage_form'] = StageForm(instance=stage)
+                except Stage.DoesNotExist:
+                    context['edit_stage_form'] = None
+            else:
+                context['edit_stage_form'] = None
+
+            context['current_stage'] = job_application.current_stage
+            return context
 
     def get_queryset(self):
         return JobApplication.objects.filter(user=self.request.user)
@@ -121,15 +135,18 @@ class StageCreateView(LoginRequiredMixin, CreateView):
 
 class StageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Stage
+    form_class = StageForm
     template_name = 'profile/job_application_detail.html'
-    fields = ['stage_number', 'stage_name', 'stage_date_time', 'status']
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return redirect('job_application_detail', pk=self.object.job_application.pk)
 
     def get_success_url(self):
         return reverse_lazy('job_application_detail', kwargs={'pk': self.object.job_application.pk})
 
     def test_func(self):
-        stage = self.get_object()
-        return stage.job_application.user == self.request.user
+        return self.get_object().job_application.user == self.request.user
 
 class StageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Stage
