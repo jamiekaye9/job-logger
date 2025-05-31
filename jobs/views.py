@@ -5,9 +5,9 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
-from jobs.forms.forms import CustomUserCreationForm, JobApplicationForm, StageForm
+from jobs.forms.forms import CustomUserCreationForm, JobApplicationForm, StageForm, ApplicationNoteForm, StageNoteForm
 from django.contrib.auth import authenticate, login
-from .models import JobApplication, Stage
+from .models import JobApplication, Stage, ApplicationNote, StageNote
 
 class HomeView(TemplateView):
     template_name = 'home/home.html'
@@ -65,6 +65,10 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
             job_application = JobApplication.objects.get(pk=self.object.pk)
             context['stages'] = job_application.stages.all()
             context['stage_form'] = StageForm()
+            context['note_form'] = ApplicationNoteForm()
+            context['notes'] = job_application.notes.all()
+            context['stage_notes'] = StageNote.objects.filter(stage__job_application=job_application)
+            context['stage_note_form'] = StageNoteForm()
             
             editing_stage_id = self.request.GET.get("edit")
             context['editing_stage_id'] = int(editing_stage_id) if editing_stage_id else None
@@ -182,3 +186,30 @@ class StageDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context['application'] = self.object.job_application
         return context
+
+class ApplicationNoteCreateView(LoginRequiredMixin, CreateView):
+    model = ApplicationNote
+    fields = ['note_text']
+    template_name = 'profile/job_application_detail.html'
+
+    def form_valid(self, form):
+        form.instance.job_application = get_object_or_404(JobApplication, pk=self.kwargs['application_id'], user=self.request.user)
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.job_application.pk})
+
+class StageNoteCreateView(LoginRequiredMixin, CreateView):
+    model = StageNote
+    fields = ['note_text']
+    template_name = 'profile/job_application_detail.html'
+
+    def form_valid(self, form):
+        stage = get_object_or_404(Stage, pk=self.kwargs['stage_id'], job_application__user=self.request.user)
+        form.instance.stage = stage
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.stage.job_application.pk})

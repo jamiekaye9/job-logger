@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from jobs.models import JobApplication, Stage
+from jobs.models import JobApplication, Stage, ApplicationNote, StageNote
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -26,4 +26,20 @@ class StageForm(forms.ModelForm):
         fields = ['stage_name', 'stage_date_time', 'status']
         widgets = {
             'stage_date_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+
+class ApplicationNoteForm(forms.ModelForm):
+    class Meta:
+        model = ApplicationNote
+        fields = ['note_text']
+        widgets = {
+            'note_text': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
+        }
+
+class StageNoteForm(forms.ModelForm):
+    class Meta:
+        model = StageNote
+        fields = ['note_text']
+        widgets = {
+            'note_text': forms.Textarea(attrs={'rows': 4, 'cols': 40}),
         }
