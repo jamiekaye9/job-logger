@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from jobs.views import HomeView, SignupView, CustomLoginView, CustomLogoutView, ProfileView, JobApplicationListView, JobApplicationCreateView, JobApplicationDetailView, JobApplicationUpdateView, JobApplicationDeleteView, StageCreateView, StageUpdateView, StageDeleteView, ApplicationNoteCreateView, StageNoteCreateView
+from jobs.views import HomeView, SignupView, CustomLoginView, CustomLogoutView, ProfileView, JobApplicationListView, JobApplicationCreateView, JobApplicationDetailView, JobApplicationUpdateView, JobApplicationDeleteView, StageCreateView, StageUpdateView, StageDeleteView, ApplicationNoteCreateView, StageNoteCreateView, ApplicationNoteUpdateView, StageNoteUpdateView, ApplicationNoteDeleteView, StageNoteDeleteView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -22,4 +22,8 @@ urlpatterns = [
 
     path('job_applications/<int:application_id>/add_note/', ApplicationNoteCreateView.as_view(), name='add_application_note'),
     path('stages/<int:stage_id>/add_note/', StageNoteCreateView.as_view(), name='add_stage_note'),
+    path('job_applications/<int:application_id>/notes/<int:note_id>/update/', ApplicationNoteUpdateView.as_view(), name='update_application_note'),
+    path('stages/<int:stage_id>/notes/<int:note_id>/update/', StageNoteUpdateView.as_view(), name='update_stage_note'),
+    path('job_applications/<int:application_id>/notes/<int:note_id>/delete/', ApplicationNoteDeleteView.as_view(), name='delete_application_note'),
+    path('stages/<int:stage_id>/notes/<int:note_id>/delete/', StageNoteDeleteView.as_view(), name='delete_stage_note'),
 ]

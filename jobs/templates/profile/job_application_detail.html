@@ -12,19 +12,32 @@
 {% endif %}
 
 <h3>Notes</h3>
-<h4>Add a New Note</h4>
-<form method="post" action="{% url 'add_application_note' application.pk %}">
-    {% csrf_token %}
-    {{ note_form.note_text }}
-    {{ note_form.note_text.errors }}
-    <button type="submit">Add Note</button>
-</form>
+<h4>{% if editing_application_note_id %}Edit Note{% else %}Add a New Note{% endif %}</h4>
+        <form method="post" action="{% if editing_application_note_id %}{% url 'update_application_note' application.pk editing_application_note_id %}{% else %}{% url 'add_application_note' application.pk %}{% endif %}">
+                {% csrf_token %}
+                {% if editing_application_note_id %}
+                    {{ edit_application_note_form.note_text }}
+                    {{ edit_application_form.note_text.errors }}
+                {% else %}
+                    {{ application_note_form.note_text }}
+                    {{ application_note_form.note_text.errors }}
+                {% endif %}
+                <button type="submit">{% if editing_application_note_id %}Save{% else %}Add Note{% endif %}</button>
+                {% if editing_application_note_id %}
+                    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+                {% endif %}
+            </form>
 
 {% if notes %}
 <ul>
     {% for note in notes %}
     <li>
         <strong>{{ note.created_at }}:</strong> {{ note.note_text }}
+        <a href="{% url 'update_application_note' application.pk note.pk %}">Edit</a>
+        <form method="post" action="{% url 'delete_application_note' application.pk note.pk %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form>
     </li>
     {% endfor %}
 </ul>
@@ -75,24 +88,39 @@
             - {{ stage.stage_date_time }} - {{ stage.status }}
             <a href="{% url 'job_application_detail' application.pk %}?edit={{ stage.pk }}">Edit</a>
             <a href="{% url 'delete_stage' stage.pk %}">Delete</a>
+        {% endif %}
 
-            <h4>Add a New Note</h4>
-            <form method="post" action="{% url 'add_stage_note' stage.pk %}">
+        <h4>{% if editing_stage_note_id %}Edit Note{% else %}Add a New Note{% endif %}</h4>
+        <form method="post" action="{% if editing_stage_note_id %}{% url 'update_stage_note' stage.pk editing_stage_note_id %}{% else %}{% url 'add_stage_note' stage.pk %}{% endif %}">
                 {% csrf_token %}
-                {{ stage_note_form.note_text }}
-                {{ stage_note_form.note_text.errors }}
-                <button type="submit">Add Note</button>
+                {% if editing_stage_note_id %}
+                    {{ edit_stage_note_form.note_text }}
+                    {{ edit_stage_note_form.note_text.errors }}
+                {% else %}
+                    {{ stage_note_form.note_text }}
+                    {{ stage_note_form.note_text.errors }}
+                {% endif %}
+                <button type="submit">{% if editing_stage_note_id %}Save{% else %}Add Note{% endif %}</button>
+                {% if editing_stage_note_id %}
+                    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+                {% endif %}
             </form>
 
-            {% if stage.notes.all %}
-                <ul>
-                    {% for note in stage.notes.all %}
-                        <li><strong>{{ note.created_at }}:</strong> {{ note.note_text }}</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No notes for this stage yet.</p>
-            {% endif %}
+        {% if stage.notes.all %}
+            <ul>
+                {% for note in stage.notes.all %}
+                    <li>
+                        <strong>{{ note.created_at }}:</strong> {{ note.note_text }}
+                        <a href="{% url 'update_stage_note' stage.pk note.pk %}">Edit</a>
+                        <form method="post" action="{% url 'delete_stage_note' stage.pk note.pk %}">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No notes for this stage yet.</p>
         {% endif %}
     </li>
     {% endfor %}
@@ -101,4 +129,3 @@
 <p>No stages added yet.</p>
 {% endif %}
 {% endblock %}
-
