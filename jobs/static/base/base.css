@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+* {
+    font-family: 'Source Serif 4', serif;
+    margin: 0;
+    padding: 0;
+}
+
+.logo-job, .logo-logger {
+    font-size: 35px;
+}
+
+.logo-logger {
+    color: #0093bf;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-list {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-element {
+    text-decoration: none;
+    color: black;
+}
+
+li {
+    list-style: none;
+}

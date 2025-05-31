@@ -1,0 +1,68 @@
+.title {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.job-details-header {
+    background-color: #0093bf;
+    margin-top: 20px;
+}
+
+.job-details-main {
+    margin-top: 30px;
+}
+
+.job-details-top {
+    display: flex;
+    justify-content: space-around;;
+    flex-direction: row;
+}
+
+.job-details-top-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.job-detail-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid #0093bf;
+    width: 600px;
+    height: 500px;
+}
+
+.job-details-info {
+    border: 2px solid #0093bf;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.new-stage-form {
+    border: 2px solid #0093bf;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.application-note-box {
+    border: 1px solid #0093bf;
+}
+
+.application-note-actions {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+
+}

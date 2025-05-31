@@ -1,24 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Logger</title>
+    <link rel="stylesheet" href="{% static 'base/base.css' %}">
     {% block head %} {% endblock %}
   </head>
   <body>
-    <header>
-      <nav>
-        <ul>
+    <header class="header">
+      <nav class="nav">
+        <h1 class="logo">
+          <span class="logo-job">JOB</span><span class="logo-logger">LOGGER.</span>
+        </h1>
+        <ul class="nav-list">
           {% if user.is_authenticated %}
-          <li><a href="{% url 'profile' %}">Profile</a></li>
-          <li><a href="{% url 'job_application_list' %}">My Applications</a></li>
-          <li><a href="{% url 'job_application_form' %}">New Application</a></li>
-          <li><a href="{% url 'logout' %}">Sign Out</a></li>
+          <li><a href="{% url 'profile' %}" class="nav-element">Profile</a></li>
+          <li><a href="{% url 'job_application_list' %}" class="nav-element">My Applications</a></li>
+          <li><a href="{% url 'job_application_form' %}" class="nav-element">New Application</a></li>
+          <li><a href="{% url 'logout' %}" class="nav-element">Sign Out</a></li>
           {% else %}
           <li><a href="/">Home</a></li>
-          <li><a href="{% url 'login' %}">Sign In</a></li>
-          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}" class="nav-element">Sign In</a></li>
+          <li><a href="{% url 'signup' %}" class="nav-element">Sign Up</a></li>
           {% endif %}
         </ul>
       </nav>

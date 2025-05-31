@@ -1,73 +1,94 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'profile/job_application_detail.css' %}">
+{% endblock %}
 {% block content %}
-<h1>{{application.company_name}} - {{application.job_title}}</h1>
-<p>Status: {{application.status}}</p>
-<p>Salary: £{{application.salary}}</p>
-<p>Location: {{application.location}}</p>
-<p>Date Applied: {{application.date_applied}}</p>
-{% if current_stage %}
-<p>Current Stage: {{current_stage.stage_number}}: {{current_stage.stage_name}}</p>
-{% else %}
-<p>Current Stage: No stages added yet.</p>
-{% endif %}
+<div>
+    <header class="job-details-header">
+        <h1 class="title">{{application.company_name}} - {{application.job_title}}</h1>
+    </header>
+    <main class="job-details-main">
+        <div class="job-details-top">
+            <div class="job-details-top-left">
+                <div class="job-details-info">
+                    <p>Status: {{application.status}}</p>
+                    <p>Salary: £{{application.salary}}</p>
+                    <p>Location: {{application.location}}</p>
+                    <p>Date Applied: {{application.date_applied}}</p>
+                    {% if current_stage %}
+                    <p>Current Stage: {{current_stage.stage_number}}: {{current_stage.stage_name}}</p>
+                    {% else %}
+                    <p>Current Stage: No stages added yet.</p>
+                    <a href="{% url 'job_application_update' application.pk %}">Edit</a> |
+                    <a href="{% url 'job_application_delete' application.pk %}">Delete</a>
+                    {% endif %}
+                </div>
+                <div class="new-stage-form">
+                    <h2>Add a New Stage</h2>
+                    <form method="post" action="{% url 'create_stage' application.pk %}">
+                        {% csrf_token %}
+                        <div>
+                            <label for="id_stage_name">Name</label>
+                            {{ stage_form.stage_name }}
+                            {{ stage_form.stage_name.errors }}
+                        </div>
+                        <div>
+                            <label for="id_stage_date">Date & Time</label>
+                            {{ stage_form.stage_date_time }}
+                            {{ stage_form.stage_date.errors }}
+                        </div>
+                        <div>
+                            <label for="id_stage_status">Status</label>
+                            {{ stage_form.status }}
+                            {{ stage_form.status.errors }}
+                        </div>
+                        <button type="Submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="job-detail-notes">
+                <h4>{% if editing_application_note_id %}Edit Note{% else %}Add a New Note{% endif %}</h4>
+                        <form class="note-form" method="post" action="{% if editing_application_note_id %}{% url 'update_application_note' application.pk editing_application_note_id %}{% else %}{% url 'add_application_note' application.pk %}{% endif %}">
+                                {% csrf_token %}
+                                {% if editing_application_note_id %}
+                                    {{ edit_application_note_form.note_text }}
+                                    {{ edit_application_form.note_text.errors }}
+                                {% else %}
+                                    {{ application_note_form.note_text }}
+                                    {{ application_note_form.note_text.errors }}
+                                {% endif %}
+                                <button type="submit">{% if editing_application_note_id %}Save{% else %}Add Note{% endif %}</button>
+                                {% if editing_application_note_id %}
+                                    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+                                {% endif %}
+                            </form>
 
-<h3>Notes</h3>
-<h4>{% if editing_application_note_id %}Edit Note{% else %}Add a New Note{% endif %}</h4>
-        <form method="post" action="{% if editing_application_note_id %}{% url 'update_application_note' application.pk editing_application_note_id %}{% else %}{% url 'add_application_note' application.pk %}{% endif %}">
-                {% csrf_token %}
-                {% if editing_application_note_id %}
-                    {{ edit_application_note_form.note_text }}
-                    {{ edit_application_form.note_text.errors }}
+                {% if notes %}
+                <div class="application-notes-list">
+                    <h3>Notes</h3>
+                    {% for note in notes %}
+                    <div class="application-note-box">
+                        <p class="note-text">{{note.note_text}}</p>
+                    </div>
+                    <div class="application-note-actions">
+                        <p class="note-date">{{note.created_at}}</p>
+                        <a href="{% url 'update_application_note' application.pk note.pk %}">Edit</a>
+                        <form method="post" action="{% url 'delete_application_note' application.pk note.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
                 {% else %}
-                    {{ application_note_form.note_text }}
-                    {{ application_note_form.note_text.errors }}
+                <p>No notes added yet.</p>
                 {% endif %}
-                <button type="submit">{% if editing_application_note_id %}Save{% else %}Add Note{% endif %}</button>
-                {% if editing_application_note_id %}
-                    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
-                {% endif %}
-            </form>
-
-{% if notes %}
-<ul>
-    {% for note in notes %}
-    <li>
-        <strong>{{ note.created_at }}:</strong> {{ note.note_text }}
-        <a href="{% url 'update_application_note' application.pk note.pk %}">Edit</a>
-        <form method="post" action="{% url 'delete_application_note' application.pk note.pk %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No notes added yet.</p>
-{% endif %}
-
-<a href="{% url 'job_application_update' application.pk %}">Edit</a> |
-<a href="{% url 'job_application_delete' application.pk %}">Delete</a>
-
-<h2>Add a New Stage</h2>
-<form method="post" action="{% url 'create_stage' application.pk %}">
-    {% csrf_token %}
-    <div>
-        <label for="id_stage_name">Name</label>
-        {{ stage_form.stage_name }}
-        {{ stage_form.stage_name.errors }}
-    </div>
-    <div>
-        <label for="id_stage_date">Date & Time</label>
-        {{ stage_form.stage_date_time }}
-        {{ stage_form.stage_date.errors }}
-    </div>
-    <div>
-        <label for="id_stage_status">Status</label>
-        {{ stage_form.status }}
-        {{ stage_form.status.errors }}
-    </div>
-    <button type="Submit">Submit</button>
-</form>
+            </div>
+        </div>
+        <div class="job-details-bottom">
+        </div>
+    </main>
 
 <h2>Stages</h2>
 {% if stages %}
@@ -128,4 +149,5 @@
 {% else %}
 <p>No stages added yet.</p>
 {% endif %}
+</div>
 {% endblock %}
