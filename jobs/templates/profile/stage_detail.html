@@ -1,7 +1,81 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'profile/stage_detail.css' %}">
+{% endblock %}
+{% block title %}
+{{ stage.stage_name }} - Stage Detail
 {% endblock %}
 {% block content %}
-<h1>{{stage.stage_name}}</h1>
+<div>
+    <header class="stage-details-header">
+        <h1 class="stage-header-title">Stage {{stage.stage_number}}: {{stage.stage_name}}</h1>
+    </header>
+    <main class="stage-details-main">
+        <div class="stage-details-left">
+            <div class="stage-details-info">
+                <h2 class="title">Details</h2>
+                {% if editing_stage %}
+                <form method="post" action="{% url 'update_stage' stage.pk %}" class="stage-form">
+                    {% csrf_token %}
+                    {{ stage_form.as_p }}
+                    <div class="stage-actions">
+                        <button type="submit" class="button">Save</button>
+                        <a href="{% url 'stage_detail' stage.pk %}" class="edit-button">Cancel</a>
+                    </div>
+                </form>
+                {% else %}
+                <p>Name: {{stage.stage_name}}</p>
+                <p>Date & Time: {{stage.stage_date_time}}</p>
+                <p>Status: {{stage.status}}</p>
+                <div class="stage-details-actions">
+                    <a href="{% url 'stage_detail' stage.pk %}?edit=1" class="edit-button">Edit</a>
+                    <a href="{% url 'delete_stage' stage.pk %}" class="button">Delete</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="new-stage-note-form">
+                <h2 class="title">Add a Note</h2>
+                <form action="{% if editing_stage_note_id %}{% url 'update_stage_note' stage.pk editing_stage_note_id %}{% else %}{% url 'add_stage_note' stage.pk %}{% endif %}" method="post">
+                    {% csrf_token %}
+                    {% if editing_stage_note_id %}
+                        {{ edit_stage_note_form.note_text }}
+                        {{ edit_stage_form.note_text.errors }}
+                        <button type="submit" class="button">Update Note</button>
+                    {% else %}
+                        {{ stage_note_form.note_text }}
+                        {{ stage_note_form.note_text.errors }}
+                        <button type="submit" class="button">Add Note</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        <div class="stage-details-right">
+            <h2 class="title">Notes</h2>
+            {% if stage_notes %}
+            <div class="stage-notes-list">
+            {% for note in stage_notes %}
+            <div class="stage-note-item">
+            <div class="stage-note-box">
+                <p class="note-text">{{ note.note_text }}</p>
+            </div>
+            <div class="stage-note-actions">
+                <p class="note-date">{{ note.created_at }}</p>
+                <a href="{% url 'update_stage_note' stage.pk note.pk %}" class="edit-button">Edit</a>
+                <form action="{% url 'delete_stage_note' stage.pk note.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="button">Delete</button>
+                </form>
+            </div>
+            </div>
+            {% endfor %}
+            </div>
+            {% else %}
+            <div>
+                <p>No notes available for this stage.</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
 {% endblock %}

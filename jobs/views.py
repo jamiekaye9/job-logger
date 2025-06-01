@@ -73,22 +73,6 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
         context['editing_application'] = self.request.GET.get('edit') == '1'
         context['job_application_form'] = JobApplicationForm(instance=application)
 
-
-        # Edit stage logic
-        editing_stage_id = self.request.GET.get("edit_stage")
-        if editing_stage_id:
-            try:
-                stage = Stage.objects.get(id=editing_stage_id, job_application=application)
-                context['editing_stage_id'] = int(editing_stage_id)
-                context['edit_stage_form'] = StageForm(instance=stage)
-            except Stage.DoesNotExist:
-                context['editing_stage_id'] = None
-                context['edit_stage_form'] = None
-        else:
-            context['editing_stage_id'] = None
-            context['edit_stage_form'] = None
-
-        # Edit application note logic
         editing_note_id = self.request.GET.get("edit_note")
         if editing_note_id:
             try:
@@ -166,6 +150,31 @@ class StageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         stage_id = self.kwargs.get('pk')
         return get_object_or_404(Stage, pk=stage_id, job_application__user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        stage = self.get_object()
+
+        context['application'] = stage.job_application
+        context['stage_note_form'] = StageNoteForm()
+        context['stage_notes'] = StageNote.objects.filter(stage=stage)
+        context['stage_form'] = StageForm(instance=stage)
+        context['editing_stage'] = self.request.GET.get("edit") == "1"
+
+        editing_note_id = self.request.GET.get("edit_note")
+        if editing_note_id:
+            try:
+                note = StageNote.objects.get(id=editing_note_id, stage=stage, created_by=self.request.user)
+                context['editing_stage_note_id'] = int(editing_note_id)
+                context['edit_stage_note_form'] = StageNoteForm(instance=note)
+            except StageNote.DoesNotExist:
+                context['editing_stage_note_id'] = None
+                context['edit_stage_note_form'] = None
+        else:
+            context['editing_stage_note_id'] = None
+            context['edit_stage_note_form'] = None
+
+        return context
+
     def test_func(self):
         stage = self.get_object()
         return stage.job_application.user == self.request.user
@@ -173,14 +182,14 @@ class StageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 class StageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Stage
     form_class = StageForm
-    template_name = 'profile/job_application_detail.html'
+    template_name = 'profile/stage_detail.html'
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        return redirect('job_application_detail', pk=self.object.job_application.pk)
+        return redirect('stage_detail', pk=self.object.pk)
 
     def get_success_url(self):
-        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.job_application.pk})
+        return reverse_lazy('stage_detail', kwargs={'pk': self.object.pk})
 
     def test_func(self):
         return self.get_object().job_application.user == self.request.user
@@ -298,7 +307,7 @@ class ApplicationNoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteV
 class StageNoteCreateView(LoginRequiredMixin, CreateView):
     model = StageNote
     fields = ['note_text']
-    template_name = 'profile/job_application_detail.html'
+    template_name = 'profile/stage_detail.html'
 
     def form_valid(self, form):
         stage = get_object_or_404(Stage, pk=self.kwargs['stage_id'], job_application__user=self.request.user)
@@ -307,18 +316,18 @@ class StageNoteCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.stage.job_application.pk})
+        return reverse_lazy('stage_detail', kwargs={'pk': self.object.stage.pk})
 
 class StageNoteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = StageNote
     fields = ['note_text']
-    template_name = 'profile/job_application_detail.html'
+    template_name = 'profile/stage_detail.html'
 
     def get_object(self):
         return get_object_or_404(
             StageNote,
             pk=self.kwargs['note_id'],
-            stage__id=self.kwargs['stage_id'],
+            stage=self.kwargs['stage_id'],
             created_by=self.request.user
         )
 
@@ -327,7 +336,7 @@ class StageNoteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.stage.job_application.pk})
+        return reverse_lazy('stage_detail', kwargs={'pk': self.object.stage.pk})
 
     def test_func(self):
         return self.get_object().stage.job_application.user == self.request.user
@@ -335,7 +344,8 @@ class StageNoteUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         application = self.get_object().stage.job_application
-
+        stage = self.get_object().stage
+        context['stage'] = stage
         context['application'] = application
         context['stages'] = application.stages.all()
         context['stage_form'] = StageForm()
@@ -366,7 +376,7 @@ class StageNoteDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse_lazy('job_application_detail', kwargs={'pk': self.object.stage.job_application.pk})
+        return reverse_lazy('stage_detail', kwargs={'pk': self.object.stage.pk})
 
     def test_func(self):
         return self.get_object().stage.job_application.user == self.request.user

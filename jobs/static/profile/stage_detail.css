@@ -1,0 +1,147 @@
+.stage-details-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30px;
+    width: 1300px;
+}
+
+.stage-details-header {
+    background-color: #0093bf;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.stage-header-title {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.stage-details-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stage-details-info {
+    border: 2px solid #0093bf;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    width: 450px;
+    border-radius: 10px;
+    height: 320px;
+}
+
+.new-stage-note-form {
+    border: 2px solid #0093bf;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 220px;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.stage-details-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid #0093bf;
+    width: 700px;
+    height: 570px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.stage-note-box {
+    border: 1px solid #0093bf;
+    border-radius: 5px;
+    overflow-x: hidden;
+    width: 100%; 
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+.stage-note-actions {
+    display: flex;
+    justify-content: right;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.stage-notes-list {
+    height: 470px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.note-text {
+    padding: 5px;
+}
+
+
+.note-date {
+    color: #0093bf;
+    font-size: 14px;
+}
+
+.button, .edit-button, .back-button {
+    background-color: #0093bf;
+    color: white;
+    border: none;
+    height: 25px;
+    width: 60px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 12px;
+}
+
+.back-button {
+    background-color: white;
+    color: #0093bf;
+    width: 140px;
+    font-size: 14px;
+}
+
+.edit-button {
+    background-color: #767777;
+}
+
+.stage-note-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.title {
+    color: #0093bf;
+    font-weight: bold;
+    font-size: 40px;
+    padding-top: 10px;
+}
+
+.stage-details-actions {
+     display: flex;
+    justify-content: left;
+    gap: 20px;
+    align-items: center;
+}
