@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from jobs.views import HomeView, SignupView, CustomLoginView, CustomLogoutView, ProfileView, JobApplicationListView, JobApplicationCreateView, JobApplicationDetailView, JobApplicationUpdateView, JobApplicationDeleteView, StageCreateView, StageUpdateView, StageDeleteView, ApplicationNoteCreateView, StageNoteCreateView, ApplicationNoteUpdateView, StageNoteUpdateView, ApplicationNoteDeleteView, StageNoteDeleteView
+from jobs.views import HomeView, SignupView, CustomLoginView, CustomLogoutView, ProfileView, JobApplicationListView, JobApplicationCreateView, JobApplicationDetailView, JobApplicationUpdateView, JobApplicationDeleteView, StageCreateView, StageDetailView, StageUpdateView, StageDeleteView, ApplicationNoteCreateView, StageNoteCreateView, ApplicationNoteUpdateView, StageNoteUpdateView, ApplicationNoteDeleteView, StageNoteDeleteView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -17,6 +17,7 @@ urlpatterns = [
     path('job_applications/<int:pk>/delete/', JobApplicationDeleteView.as_view(), name='job_application_delete'),
 
     path('stages/new/<int:application_id>/', StageCreateView.as_view(), name='create_stage'),
+    path('stages/<int:pk>/', StageDetailView.as_view(), name='stage_detail'),
     path('stages/<int:pk>/update/', StageUpdateView.as_view(), name='update_stage'),
     path('stages/<int:pk>/delete/', StageDeleteView.as_view(), name='delete_stage'),
 

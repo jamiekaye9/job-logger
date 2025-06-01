@@ -7,25 +7,32 @@
 <div class="job-details-body">
     <header class="job-details-header">
         <h1 class="header-title">{{ application.company_name }} - {{ application.job_title }}</h1>
+        <a href="{% url 'job_application_list' %}" class="back-button">Back to Applications</a>
     </header>
     <main class="job-details-main">
         <div class="job-details-top">
             <div class="job-details-top-left">
                 <div class="job-details-info">
                     <h2 class="title">Details</h2>
-                    <p>Status: {{ application.status }}</p>
-                    <p>Salary: £{{ application.salary }}</p>
-                    <p>Location: {{ application.location }}</p>
-                    <p>Date Applied: {{ application.date_applied }}</p>
-                    {% if current_stage %}
-                    <p>Current Stage: {{ current_stage.stage_number }}. {{ current_stage.stage_name }}</p>
+                    {% if editing_application %}
+                        <form method="post" action="{% url 'job_application_update' application.pk %}" class="job-application-form">
+                            {% csrf_token %}
+                            {{ job_application_form.as_p }}
+                            <div class="detail-actions">
+                                <button type="submit" class="button">Save</button>
+                                <a href="{% url 'job_application_detail' application.pk %}" class="edit-button">Cancel</a>
+                            </div>
+                        </form>
                     {% else %}
-                    <p>Current Stage: No stages added yet.</p>
+                        <p>Status: {{ application.status }}</p>
+                        <p>Salary: £{{ application.salary }}</p>
+                        <p>Location: {{ application.location }}</p>
+                        <p>Date Applied: {{ application.date_applied }}</p>
+                        <div class="detail-actions">
+                            <a href="?edit=1" class="edit-button">Edit</a>
+                            <a href="{% url 'job_application_delete' application.pk %}" class="button">Delete</a>
+                        </div>
                     {% endif %}
-                    <div class="detail-actions">
-                        <a href="{% url 'job_application_update' application.pk %}" class="edit-button">Edit</a>
-                        <a href="{% url 'job_application_delete' application.pk %}" class="button">Delete</a>
-                    </div>
                 </div>
                 <div class="new-stage-form">
                     <h2 class="title">Add a New Stage</h2>
@@ -94,50 +101,21 @@
                 {% endif %}
             </div>
         </div>
-        <div class="job-details-bottom">
+        <div class="job-detail-bottom">
             <h2 class="title">Stages</h2>
+            <div class="stages-list">
             {% if stages %}
             {% for stage in stages %}
-            <div>
-                <div>
-                    <div>
-                        <h3>Name: {{stage.stage_name}}</h3>
-                        <p>Date & Time: {{ stage.stage_date_time }}</p>
-                        <p>Status: {{ stage.status }}</p>
-                    </div>
-                    <div>
-                        <h3>Add a New Note</h3>
-                        <form method="post" action="{% url 'add_stage_note' stage.pk %}" class="stage-note-form">
-                            {% csrf_token %}
-                            {{ stage_note_form.note_text }}
-                            {{ stage_note_form.note_text.errors }}
-                            <button type="submit" class="button">Submit</button>
-                        </form>
-                    </div>
+                <div class="stage-item">
+                    <h3>Stage {{stage.stage_number}}</h3>
+                    <p>{{ stage.stage_name }}</p>
+                    <p>{{ stage.stage_date_time }}</p>
+                    <p>Status: {{ stage.status }}</p>
+                    <a href="{% url 'stage_detail' stage.pk %}" class="more-info-button">More Info</a>
                 </div>
-                <div>
-                    <h3>Stage Notes</h3>
-                    {% with stage.notes.all as stage_notes %}
-                        {% if stage_notes %}
-                            {% for note in stage_notes %}
-                                <div>{{ note.note_text }}</div>
-                                <div>
-                                    {{ note.created_at }}
-                                    <a href="{% url 'update_stage_note' stage.pk note.pk %}" class="edit-button">Edit</a>
-                                    <form method="post" action="{% url 'delete_stage_note' stage.pk note.pk %}" style="display:inline;">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button">Delete</button>
-                                    </form>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p>No notes added yet.</p>
-                        {% endif %}
-                    {% endwith %}
-                </div>
-            </div>
             {% endfor %}
-        {% endif %}
+            {% endif %}
+           </div>
         </div>
     </main>
 </div>

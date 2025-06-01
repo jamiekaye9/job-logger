@@ -67,10 +67,12 @@ class JobApplicationDetailView(LoginRequiredMixin, DetailView):
         context['stages'] = application.stages.all()
         context['notes'] = application.notes.all()
         context['stage_notes'] = StageNote.objects.filter(stage__job_application=application)
-
         context['stage_form'] = StageForm()
         context['application_note_form'] = ApplicationNoteForm()
         context['stage_note_form'] = StageNoteForm()
+        context['editing_application'] = self.request.GET.get('edit') == '1'
+        context['job_application_form'] = JobApplicationForm(instance=application)
+
 
         # Edit stage logic
         editing_stage_id = self.request.GET.get("edit_stage")
@@ -154,6 +156,19 @@ class StageCreateView(LoginRequiredMixin, CreateView):
         context['stages'] = job_application.stages.all()
         context['stage_form'] = StageForm()
         return context
+
+class StageDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Stage
+    template_name = 'profile/stage_detail.html'
+    context_object_name = 'stage'
+
+    def get_object(self, queryset=None):
+        stage_id = self.kwargs.get('pk')
+        return get_object_or_404(Stage, pk=stage_id, job_application__user=self.request.user)
+
+    def test_func(self):
+        stage = self.get_object()
+        return stage.job_application.user == self.request.user
 
 class StageUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Stage
