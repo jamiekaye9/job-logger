@@ -1,5 +1,10 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+{% endblock %}
 {% block content %}
-<h1>Welcome</h1>
-<h2>Track your applications.</h2>
+<div class="profile-header">
+    <h1 class="profile-title">Welcome, {{ user.first_name }}</h1>
+</div>
 {% endblock %}

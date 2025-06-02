@@ -20,6 +20,7 @@
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 10px;
 }
 
 .nav-list {
@@ -34,4 +35,50 @@
 
 li {
     list-style: none;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    gap: 20px;
+    width: 1508px;
+}
+
+.footer-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 20px;
+}
+
+.footer-logo {
+    width: 90px;
+}
+
+.footer-title {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+
+.footer-text {
+    font-size: 20px;
+    color: #0093bf;
+}
+
+.footer-title-box {
+    background-color: #0093bf;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 20px;
+    width: 1508px;
 }

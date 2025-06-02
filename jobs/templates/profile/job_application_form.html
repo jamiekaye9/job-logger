@@ -1,38 +1,48 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'profile/job_application_form.css' %}">
+{% endblock %}
 {% block content %}
-<h1>New Application</h1>
-<form method="post">
-    {% csrf_token %}
-    <div>
-        <label for="id_company_name">Company Name</label>
-        {{ form.company_name }}
-        {{ form.company_name.errors }}
-    </div>
-    <div>
-        <label for="id_job_title">Job Title</label>
-        {{ form.job_title }}
-        {{ form.job_title.errors }}
-    </div>
-    <div>
-        <label for="id_salary">Salary</label>
-        {{ form.salary }}
-        {{ form.salary.errors }}
-    </div>
-    <div>
-        <label for="id_location">Location</label>
-        {{ form.location }}
-        {{ form.location.errors }}
-    </div>
-    <div>
-        <label for="id_date_applied">Date Applied</label>
-        {{ form.date_applied }}
-        {{ form.date_applied.errors }}
-    </div>
-    <div>
-        <label for="id_status">Status</label>
-        {{ form.status }}
-        {{ form.status.errors }}
-    </div>
-    <button type="submit">Submit</button>
-</form>
+<header class="form-header">
+    <h1 class="header-title">New Application</h1>
+</header>
+<main class="form-main">
+    <form method="post" class="job-application-form">
+        {% csrf_token %}
+        <div class="form-field">
+            <label for="id_company_name">Company Name</label>
+            {{ form.company_name }}
+            {{ form.company_name.errors }}
+        </div>
+        <div class="form-field">
+            <label for="id_job_title">Job Title</label>
+            {{ form.job_title }}
+            {{ form.job_title.errors }}
+        </div>
+        <div class="form-field">
+            <label for="id_salary">Salary</label>
+            {{ form.salary }}
+            {{ form.salary.errors }}
+        </div>
+        <div class="form-field">
+            <label for="id_location">Location</label>
+            {{ form.location }}
+            {{ form.location.errors }}
+        </div>
+        <div class="form-field">
+            <label for="id_date_applied">Date Applied</label>
+            {{ form.date_applied }}
+            {{ form.date_applied.errors }}
+        </div>
+        <div class="form-field">
+            <label for="id_status">Status</label>
+            {{ form.status }}
+            {{ form.status.errors }}
+        </div>
+        <div class="button-box">
+            <button type="submit" class="button">Submit</button>
+        </div>
+        </form>
+</main>
 {% endblock %}

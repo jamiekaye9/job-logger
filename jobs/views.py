@@ -35,6 +35,12 @@ class CustomLogoutView(LogoutView):
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile/profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['applications'] = JobApplication.objects.filter(user=self.request.user)
+        context['user'] = self.request.user
+        return context
+
 class JobApplicationListView(LoginRequiredMixin, ListView):
     model = JobApplication
     template_name = 'profile/job_application_list.html'

@@ -28,6 +28,22 @@
         </ul>
       </nav>
     </header>
-    <main>{% block content %} {% endblock %}</main>
+    <main>
+      {% block content %} 
+      {% endblock %}
+      <div class="footer">
+        <div class="footer-title-box">
+          <h2 class="footer-title">Start Applying</h2>
+        </div>
+        <p class="footer-text">The following Job Websites are industry leading and give you the best chance of finding your next role.</p>
+        <div class="footer-logos">
+          <a href="https://www.linkedin.com/"><img src="{% static 'images/linkedin-logo.png' %}" alt="LinkedIn Logo" class="footer-logo"></a>
+          <a href="https://uk.indeed.com/"><img src="{% static 'images/indeed-logo.png' %}" alt="Indeed Logo" class="footer-logo"></a>
+          <a href="https://www.google.com/about/careers/applications/"><img src="{% static 'images/google-jobs-logo.png' %}" alt="Google Careers" class="footer-logo"></a>
+          <a href="https://www.glassdoor.co.uk/index.htm"><img src="{% static 'images/glassdoor-logo.png' %}" alt="Glassdoor Logo" class="footer-logo"></a>
+          <a href="https://www.cv-librarygroup.co.uk/"><img src="{% static 'images/cv-library-logo.png' %}" alt="CV Library Logo" class="footer-logo"></a>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

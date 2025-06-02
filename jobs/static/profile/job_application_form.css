@@ -1,0 +1,76 @@
+.header-title {
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: white;
+}
+
+.form-header {
+    background-color: #0093bf;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.form-main {
+    margin-top: 30px;
+    width: 1508px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.button {
+    background-color: #0093bf;
+    color: white;
+    border: none;
+    height: 30px;
+    width: 80px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+}
+
+.button-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+label {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #0093bf;
+}
+
+.form-field {
+    width: 420px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.job-application-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.job-application-form input,
+.job-application-form select {
+    border: #0093bf 2px solid;
+    border-radius: 5px;
+    width: 220px;
+    box-shadow: #0093bf 0px 0px 2px;
+}

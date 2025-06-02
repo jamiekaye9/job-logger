@@ -11,6 +11,14 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)  # create user instance without saving yet
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        if commit:
+            user.save()
+        return user
 
 class JobApplicationForm(forms.ModelForm):
     class Meta:
