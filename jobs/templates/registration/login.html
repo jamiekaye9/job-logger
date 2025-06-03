@@ -1,28 +1,38 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'registration/login.css' %}">
+{% endblock %}
 {% block content %}
-<h1>Sign In</h1>
-<form method="post">
-  {% csrf_token %}
+<header class="login-header">
+  <h1 class="login-title">Sign In</h1>
+</header>
+<main class="form-main">
+  <form method="post" class="login-form">
+    {% csrf_token %}
 
-  {% if form.non_field_errors %}
-    <div class="error">
-      {% for error in form.non_field_errors %}
-        <p>{{ error }}</p>
-      {% endfor %}
+    {% if form.non_field_errors %}
+      <div class="error">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="form-field">
+      {{ form.username.label_tag }}
+      {{ form.username }}
     </div>
-  {% endif %}
 
-  <div>
-    {{ form.username.label_tag }}
-    {{ form.username }}
-  </div>
+    <div class="form-field">
+      {{ form.password.label_tag }}
+      {{ form.password }}
+    </div>
 
-  <div>
-    {{ form.password.label_tag }}
-    {{ form.password }}
-  </div>
-
-  <button type="submit">Sign In</button>
-</form>
+    <div class="button-box">
+      <button type="submit" class="button">Sign In</button>
+    </div>
+  </form>
+</main>
 
 {% endblock %}
