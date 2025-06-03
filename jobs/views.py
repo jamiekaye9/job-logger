@@ -39,6 +39,18 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['applications'] = JobApplication.objects.filter(user=self.request.user)
         context['user'] = self.request.user
+        context['open_applications'] = context['applications'].filter(status__in=['Applied', 'In Progress', 'Offer']).count()
+        context['total_applications'] = context['applications'].count()
+        context['stages'] = Stage.objects.filter(job_application__user=self.request.user).order_by('stage_date_time')
+        from django.utils import timezone
+
+        context['upcoming_stage'] = (
+            Stage.objects
+            .filter(job_application__user=self.request.user, stage_date_time__gte=timezone.now())
+            .order_by('stage_date_time')
+            .first()
+        )
+
         return context
 
 class JobApplicationListView(LoginRequiredMixin, ListView):

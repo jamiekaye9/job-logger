@@ -1,11 +1,11 @@
-.signup-title {
+.home-title {
     padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
 }
 
-.signup-header {
+.home-header {
     background-color: #0093bf;
     margin-top: 20px;
     display: flex;
@@ -15,7 +15,7 @@
     padding-right: 20px;
 }
 
-.form-main {
+.home-main {
     margin-top: 30px;
     width: 1508px;
     display: flex;
@@ -23,6 +23,19 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 50px;
+    gap: 50px;
+}
+
+.home-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.image {
+    width: 1000px;
 }
 
 .button {
@@ -41,39 +54,8 @@
     font-size: 15px;
 }
 
-.button-box {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-label {
-    font-size: 25px;
+.home-sub-title {
+    font-size: 30px;
     font-weight: bold;
-    margin-bottom: 5px;
     color: #0093bf;
-}
-
-.form-field {
-    width: 470px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border: 2px solid #0093bf;
-}
-
-.signup-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-}
-
-.signup-form input,
-.signup-form select {
-    border: #0093bf 2px solid;
-    border-radius: 5px;
-    width: 220px;
-    box-shadow: #0093bf 0px 0px 2px;
 }

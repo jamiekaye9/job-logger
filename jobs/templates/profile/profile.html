@@ -4,7 +4,23 @@
 <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
 {% endblock %}
 {% block content %}
-<div class="profile-header">
+<header class="profile-header">
     <h1 class="profile-title">Welcome, {{ user.first_name }}</h1>
-</div>
+</header>
+<main class="profile-main">
+    <div class="profile-upcoming-stage">
+        <h3 class="sub-title">Upcoming Stage</h3>
+        <p>Company: {{upcoming_stage.job_application.company_name}}</p>
+        <p>Job Title: {{upcoming_stage.job_application.job_title}}</p>
+        <p>Stage: {{upcoming_stage.stage_name}}</p>
+        <p>Date: {{upcoming_stage.stage_date_time}}</p>
+    </div>
+    <div class="profile-section">
+        <h3 class="sub-title">Open Applications</h3>
+        <p class="number">{{open_applications}}</p>
+    </div>
+    <div class="profile-section">
+        <h3 class="sub-title">Total Applications</h3>
+        <p class="number">{{total_applications}}</p>
+</main>
 {% endblock %}
