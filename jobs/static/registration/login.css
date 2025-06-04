@@ -1,5 +1,4 @@
 .login-title {
-    padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
@@ -10,14 +9,13 @@
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-right: 20px;
 }
 
 .form-main {
     margin-top: 30px;
-    width: 1508px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

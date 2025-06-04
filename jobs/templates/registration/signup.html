@@ -13,36 +13,39 @@
 
       {{ form.non_field_errors }}
 
-      <p class="form-field">
-        <label for="id_first_name">First Name</label><br>
-        {{ form.first_name }}<br>
+      <div class="form-field">
+        <label for="id_first_name">First Name</label>
+        {{ form.first_name }}
         {{ form.first_name.errors }}
-      </p>
+      </div>
 
-      <p class="form-field">
-        <label for="id_last_name">Last Name</label><br>
-        {{ form.last_name }}<br>
+      <div class="form-field">
+        <label for="id_last_name">Last Name</label>
+        {{ form.last_name }}
         {{ form.last_name.errors }}
-      </p>
+      </div>
 
-      <p  class="form-field">
-        <label for="id_username">Username</label><br>
-        {{ form.username }}<br>
+      <div  class="form-field">
+        <label for="id_username">Username</label>
+        {{ form.username }}
         {{ form.username.errors }}
-      </p>
+      </div>
 
-      <p class="form-field">
-        <label for="id_password1">Password</label><br>
-        {{ form.password1 }}<br>
-        <small>{{ form.password1.help_text }}</small><br>
+      <div class="form-field">
+        <label for="id_password1">Password</label>
+        {{ form.password1 }}
         {{ form.password1.errors }}
-      </p>
+      </div>
 
-      <p  class="form-field">
-        <label for="id_password2">Confirm Password</label><br>
-        {{ form.password2 }}<br>
+      <div class="password-info">
+        {{ form.password1.help_text }}
+      </div>
+
+      <div  class="form-field">
+        <label for="id_password2">Confirm Password</label>
+        {{ form.password2 }}
         {{ form.password2.errors }}
-      </p>
+      </div>
 
       <div class="button-box">
         <button class="button" type="submit">Submit</button>

@@ -7,7 +7,7 @@
 }
 
 .logo-job, .logo-logger {
-    font-size: 35px;
+    font-size: 40px;
 }
 
 .logo-logger {
@@ -31,6 +31,8 @@
 .nav-element {
     text-decoration: none;
     color: black;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 li {
@@ -44,7 +46,7 @@ li {
     align-items: center;
     margin-bottom: 40px;
     gap: 20px;
-    width: 1508px;
+    width: 100%;
 }
 
 .footer-logos {
@@ -60,7 +62,6 @@ li {
 }
 
 .footer-title {
-    padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
@@ -70,6 +71,8 @@ li {
 .footer-text {
     font-size: 20px;
     color: #0093bf;
+    display: flex;
+    flex: wrap;
 }
 
 .footer-title-box {
@@ -79,6 +82,5 @@ li {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-right: 20px;
-    width: 1508px;
+    width: 100%;
 }

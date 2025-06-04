@@ -11,14 +11,15 @@
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding-right: 20px;
+    gap: 50px;
 }
 
 .job-details-main {
     margin-top: 30px;
-    width: 1508px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,24 +63,26 @@
     border: 2px solid #0093bf;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-left: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     padding-bottom: 10px;
     width: 450px;
     border-radius: 10px;
     height: 320px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
 }
 
 .new-stage-form {
     border: 2px solid #0093bf;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     height: 220px;
     border-radius: 10px;
-    padding-left: 10px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
 }
 
 .application-note-box {
@@ -157,6 +160,8 @@
     color: #0093bf;
     width: 140px;
     font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .edit-button {
@@ -173,6 +178,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .stage-form input, .stage-form select, .job-application-form input, .job-application-form select {
@@ -199,7 +206,7 @@
     border-radius: 10px;
     padding: 10px;
     padding-bottom: 20px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
     justify-content: center;
     align-items: center;
     width: 1235px;

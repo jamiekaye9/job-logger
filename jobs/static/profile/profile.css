@@ -1,5 +1,4 @@
 .profile-title {
-    padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
@@ -10,9 +9,8 @@
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-right: 20px;
 }
 
 .profile-main {
@@ -24,6 +22,7 @@
     flex-wrap: wrap;
     gap: 50px;
     margin-bottom: 50px;
+    width: 100%;
 }
 
 .profile-section {

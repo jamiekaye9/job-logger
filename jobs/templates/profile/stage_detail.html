@@ -10,6 +10,7 @@
 <div>
     <header class="stage-details-header">
         <h1 class="stage-header-title">Stage {{stage.stage_number}}: {{stage.stage_name}}</h1>
+        <a href="{% url 'job_application_detail' application.pk %}" class="back-button">Back to Application</a>
     </header>
     <main class="stage-details-main">
         <div class="stage-details-left">
@@ -41,11 +42,15 @@
                     {% if editing_stage_note_id %}
                         {{ edit_stage_note_form.note_text }}
                         {{ edit_stage_form.note_text.errors }}
-                        <button type="submit" class="button">Update Note</button>
+                        <div class="stage-actions">
+                            <button type="submit" class="button">Add Note</button>
+                        </div>
                     {% else %}
                         {{ stage_note_form.note_text }}
                         {{ stage_note_form.note_text.errors }}
-                        <button type="submit" class="button">Add Note</button>
+                        <div class="stage-actions">
+                            <button type="submit" class="button">Add Note</button>
+                        </div>
                     {% endif %}
                 </form>
             </div>

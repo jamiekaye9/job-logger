@@ -1,9 +1,20 @@
 {% extends 'base/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'profile/confirm_delete.css' %}">
+{% endblock %}
 {% block content %}
 <form method="POST">
     {% csrf_token %}
-    <h2>Are you sure you wanna delete Stage {{stage.stage_number}}: {{stage.stage_name}} for {{application.company_name}} - {{application.job_title}}?</h2>
-    <button type="submit">Yes, Delete</button>
-    <a href="{% url 'job_application_detail' application.pk %}">Cancel</a>
+    <header class="form-header">
+        <h1 class="header-title">Stage {{stage.stage_number}}: {{stage.stage_name}}</h1>
+    </header>
+    <main class="form-main">
+        <h2 class="title">Are you sure you wanna delete Stage {{stage.stage_number}}: {{stage.stage_name}} for {{application.company_name}} - {{application.job_title}}?</h2>
+        <div class="button-box">
+            <button type="submit" class="button">Yes, Delete</button>
+             <a href="{% url 'stage_detail' stage.pk %}" class="edit-button">Cancel</a>
+        </div>
+    </main>
 </form>
 {% endblock %}

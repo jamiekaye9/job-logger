@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 30px;
-    width: 1508px;
+    width: 100%;
     gap: 40px;
     margin-bottom: 50px;
 }
@@ -14,13 +14,12 @@
     margin-top: 20px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding-right: 20px;
+    gap: 50px;
 }
 
 .stage-header-title {
-    padding-left: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
     color: white;
@@ -37,24 +36,28 @@
     border: 2px solid #0093bf;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     padding-left: 10px;
     padding-bottom: 10px;
     width: 450px;
     border-radius: 10px;
     height: 300px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
 }
 
 .new-stage-note-form {
     border: 2px solid #0093bf;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     height: 220px;
     border-radius: 10px;
     padding-left: 10px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
 }
 
 .stage-details-right {
@@ -67,7 +70,7 @@
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    box-shadow: #0093bf 0px 0px 10px;
+    box-shadow: #0093bf 0px 0px 5px;
 }
 
 .stage-note-box {
@@ -125,6 +128,8 @@
     color: #0093bf;
     width: 140px;
     font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .edit-button {
@@ -146,8 +151,25 @@
 }
 
 .stage-details-actions {
-     display: flex;
-    justify-content: left;
+    display: flex;
     gap: 20px;
     align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.stage-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.stage-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
