@@ -21,7 +21,7 @@
           <li><a href="{% url 'job_application_form' %}" class="nav-element">New Application</a></li>
           <li><a href="{% url 'logout' %}" class="nav-element">Sign Out</a></li>
           {% else %}
-          <li><a href="/">Home</a></li>
+          <li><a href="/" class="nav-element">Home</a></li>
           <li><a href="{% url 'login' %}" class="nav-element">Sign In</a></li>
           <li><a href="{% url 'signup' %}" class="nav-element">Sign Up</a></li>
           {% endif %}
