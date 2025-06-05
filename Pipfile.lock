@@ -1,10 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0464ae1d8ca2c375d47dc19a769f49aceb6ef39828a690d4daac73acc0449883"
+            "sha256": "b8aa0af2988b7825e00fa5cc918d9be5f19442fc9bbbe74fa0eb519501302193"
         },
         "pipfile-spec": 6,
         "requires": {
+            "postinstall": "python manage.py collectstatic --noinput",
             "python_version": "3.9"
         },
         "sources": [
