@@ -15,3 +15,5 @@ dj-database-url = "*"
 
 [requires]
 python_version = "3.9"
+
+postinstall = "python manage.py collectstatic --noinput"

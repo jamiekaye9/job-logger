@@ -90,15 +90,15 @@ DATABASES = {
                 conn_health_checks=True,
                 ssl_require=True,
             ),
-    }
+        }
     else:
         DATABASES = {
             'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'app',
             # The value of 'NAME' should match the value of 'NAME' you replaced.
+            }
         }
-    }
 
 }
 
