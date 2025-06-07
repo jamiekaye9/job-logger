@@ -9,11 +9,16 @@
 </header>
 <main class="profile-main">
     <div class="profile-upcoming-stage">
-        <h3 class="sub-title">Upcoming Stage</h3>
-        <p>Company: {{upcoming_stage.job_application.company_name}}</p>
-        <p>Job Title: {{upcoming_stage.job_application.job_title}}</p>
-        <p>Stage: {{upcoming_stage.stage_name}}</p>
-        <p>Date: {{upcoming_stage.stage_date_time}}</p>
+        {% if upcoming_stage %}
+            <h3 class="sub-title">Upcoming Stage</h3>
+            <p>Company: {{upcoming_stage.job_application.company_name}}</p>
+            <p>Job Title: {{upcoming_stage.job_application.job_title}}</p>
+            <p>Stage: {{upcoming_stage.stage_name}}</p>
+            <p>Date: {{upcoming_stage.stage_date_time}}</p>
+        {% else %}
+            <h3 class="sub-title">Upcoming Stage</h3>
+            <p>No upcoming stages</p>
+        {% endif %}
     </div>
     <div class="profile-section">
         <h3 class="sub-title">Open Applications</h3>
