@@ -5,15 +5,14 @@ name = "pypi"
 
 [packages]
 django = "*"
-psycopg2-binary = "*"
 python-dotenv = "*"
 whitenoise = "*"
 gunicorn = "*"
 dj-database-url = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
-
 postinstall = "python manage.py collectstatic --noinput"
