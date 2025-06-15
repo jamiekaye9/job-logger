@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
 from jobs.forms.forms import CustomUserCreationForm, JobApplicationForm, StageForm, ApplicationNoteForm, StageNoteForm
 from django.contrib.auth import authenticate, login
+from django.utils import timezone
 from .models import JobApplication, Stage, ApplicationNote, StageNote
 
 class HomeView(TemplateView):
@@ -42,7 +43,6 @@ class ProfileView(LoginRequiredMixin, TemplateView):
         context['open_applications'] = context['applications'].filter(status__in=['Applied', 'In Progress', 'Offer']).count()
         context['total_applications'] = context['applications'].count()
         context['stages'] = Stage.objects.filter(job_application__user=self.request.user).order_by('stage_date_time')
-        from django.utils import timezone
 
         context['upcoming_stage'] = (
             Stage.objects
