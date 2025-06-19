@@ -6,9 +6,10 @@ This is a Job Application Tracking Website. After signing up, using are able to 
 
 ## Deployed Link & Planning
 
-Deployed Link [Job Logger]()
+Deployed Link [Job Logger](https://job-logger.onrender.com)
 
 Planning Documents [Trello](https://trello.com/invite/b/68377a281c77a3e18261e778/ATTIc80ca4962ea260745aa7c8c59eceea5d877CEE88/job-logger)
+
 
 ## Technologies Used
 
