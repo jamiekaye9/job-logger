@@ -10,7 +10,7 @@
         <h1 class="header-title">{{application.company_name}} - {{application.job_title}}</h1>
     </header>
     <main class="form-main">
-        <h2 class="title">Are you sure you wanna delete {{application.company_name}} - {{application.job_title}}?</h2>
+        <h2 class="title">Are you sure you want to delete {{application.company_name}} - {{application.job_title}}?</h2>
         <div class="button-box">
             <button type="submit" class="button">Yes, Delete</button>
              <a href="{% url 'job_application_detail' application.pk %}" class="edit-button">Cancel</a>
