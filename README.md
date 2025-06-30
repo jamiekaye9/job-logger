@@ -7,6 +7,7 @@
 This is my fourth developer project, using Python and SQL for the first time. It is a job application tracking website, where users can document their application, create stages to track progression and make notes to refer back to. An intense job search can take you to many different sites, and applicants can easily lose track of their progression. This site provides a user friendly solution for users to stay in control of their search.
 
 ## Deployed Link
+Deployed Link [Job Logger](https://job-logger.onrender.com)
 
 [Job Logger](https://job-logger.onrender.com/)
 
@@ -21,6 +22,7 @@ This is my fourth developer project, using Python and SQL for the first time. It
 ## Timeframe & Working Team
 
 This was a solo project, built in the timeframe of 1 week.
+
 
 ## Technologies Used
 
