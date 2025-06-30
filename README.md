@@ -7,17 +7,23 @@
 This is my fourth developer project, using Python and SQL for the first time. It is a job application tracking website, where users can document their application, create stages to track progression and make notes to refer back to. An intense job search can take you to many different sites, and applicants can easily lose track of their progression. This site provides a user friendly solution for users to stay in control of their search.
 
 ## Deployed Link
-Deployed Link [Job Logger](https://job-logger.onrender.com)
 
 [Job Logger](https://job-logger.onrender.com/)
 
 ## Getting Started/Code Installation
 
-1. Clone Git repository: git clone https://github.com/jamiekaye9/job-logger
-2. Navigate into the job-logger folder
-3. Run 'pipenv install django' in your terminal to initialise a new virtual environment.
-4. Activate the environment using 'pipenv shell'
-6. Run 'python3 manage.py runserver'
+1. Clone Git repository: 
+  - git clone https://github.com/jamiekaye9/job-logger
+2. Navigate into the job-logger folder:
+  - cd job-logger
+3. Install dependencies and set up virtual environment:
+  - pipenv install django
+4. Activate the virtual environment:
+  - pipenv shell
+5. Apply database migrations:
+  - python3 manage.py migrate
+6. Run the development server
+  - python3 manage.py runserver
 
 ## Timeframe & Working Team
 
@@ -51,7 +57,7 @@ To start this project, I used Django’s built-in User model. I really appreciat
 To achieve this, I created a Custom User Creation Form that extends Django’s default UserCreationForm. In this form:
   - I added first_name and last_name as required fields.
   - I specified that the form should include first_name, last_name, username, password1, and password2 so users provide all the necessary information.
-  - I customized the save method so that after the form validates the input, it sets the user’s first_name and last_name before saving the user to the database.
+  - I customised the save method so that after the form validates the input, it sets the user’s first_name and last_name before saving the user to the database.
 
 This approach allowed me to keep Django’s reliable authentication system while adding just the extra details I needed.
 
